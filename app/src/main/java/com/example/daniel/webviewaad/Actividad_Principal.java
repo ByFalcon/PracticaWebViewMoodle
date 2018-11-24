@@ -23,7 +23,7 @@ public class Actividad_Principal extends AppCompatActivity {
     private String pass;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
-    private int acceso;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

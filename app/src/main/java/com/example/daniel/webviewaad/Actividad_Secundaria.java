@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -45,33 +46,34 @@ public class Actividad_Secundaria extends AppCompatActivity {
                 webView.loadUrl("javascript: " + javaScript);
 
                 Log.v("URL", url);
+
+                if(shouldOverrideUrlLoading(view, url)==false){
+                    setResult(Actividad_Principal.RESULT_CANCELED);
+                    finish();
+                }else {
+                    setResult(Actividad_Principal.RESULT_OK);
+                }
+
+
+
                 /*try {
                     Thread.sleep(10000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }
-                if(url.equalsIgnoreCase(urlMoodle)){
-                    setResult(Actividad_Principal.RESULT_CANCELED);
-                    finish();
                 }*/
-                webView.setWebViewClient(new WebViewClient(){
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, String newUrl) {
-                        Log.v("URL", "Entrando en el Should");
-                        Log.v("URL", newUrl);
-                        if(newUrl.equalsIgnoreCase("http://www.juntadeandalucia.es/averroes/centros-tic/18700098/moodle2/")) {
-                            setResult(Actividad_Principal.RESULT_OK);
-                            finish();
-                            return true;
-                        }
-                        setResult(Actividad_Principal.RESULT_CANCELED);
-                        finish();
-                        return false;
-                    }
-                });
+
+
             }
         });
-
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view,  String newUrl) {
+                if(newUrl.equalsIgnoreCase(urlMoodle)){
+                    return false;
+                }
+                return true;
+            }
+        });
     }
 
 }
