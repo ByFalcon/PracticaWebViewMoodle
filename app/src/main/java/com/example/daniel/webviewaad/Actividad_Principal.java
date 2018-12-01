@@ -85,9 +85,6 @@ public class Actividad_Principal extends AppCompatActivity {
             if(resultCode == RESULT_CANCELED){
                 textView.setText("Los datos no son correctos");
             }
-            if (resultCode == RESULT_OK){
-                textView.setText("Los datos son correctos");
-            }
         }
     }
 }

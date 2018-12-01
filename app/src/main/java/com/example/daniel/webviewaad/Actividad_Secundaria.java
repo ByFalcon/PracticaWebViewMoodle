@@ -36,42 +36,27 @@ public class Actividad_Secundaria extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                final String javaScript = ""+
+                /*final String javaScript = ""+
                         "var boton = document.getElementById('loginbtn');" +
                         "var usuario = document.getElementById('username');"+
                         "var contra = document.getElementById('password');"+
                         "usuario.value = '"+user+"';"+
                         "contra.value = '"+pass+"';"+
-                        "boton.click();";
-                webView.loadUrl("javascript: " + javaScript);
-
+                        "boton.click();";*/
+                if(contador == 0) {
+                    final String javaScript = "" +
+                            "document.getElementById('username').value='" + user + "';" +
+                            "document.getElementById('password').value='" + pass + "';" +
+                            "document.getElementById('login').submit()";
+                    webView.loadUrl("javascript: " + javaScript);
+                }
+                contador++;
                 Log.v("URL", url);
 
-                if(shouldOverrideUrlLoading(view, url)==false){
-                    setResult(Actividad_Principal.RESULT_CANCELED);
+                if(url.equals("http://www.juntadeandalucia.es/averroes/centros-tic/18700098/moodle2/login/index.php")&&contador >1){
+                    setResult(RESULT_CANCELED);
                     finish();
-                }else {
-                    setResult(Actividad_Principal.RESULT_OK);
                 }
-
-
-
-                /*try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }*/
-
-
-            }
-        });
-        webView.setWebViewClient(new WebViewClient(){
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view,  String newUrl) {
-                if(newUrl.equalsIgnoreCase(urlMoodle)){
-                    return false;
-                }
-                return true;
             }
         });
     }
